@@ -1,9 +1,9 @@
 import tkinter as tk
 import tkinter.scrolledtext as tkst
 
-
 import video_library as lib
 import font_manager as fonts
+from update_video import UpdateVideo
 
 
 def set_text(text_area, content):

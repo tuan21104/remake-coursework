@@ -17,7 +17,7 @@ class CreateVideoList:
         enter_video_lbl.grid(row=0, column=0, sticky='w', padx=10, pady=10)
 
         self.enter_video_entry = tk.Entry(self.window, width=3)
-        self.enter_video_entry.grid(row=0, column=1, padx=10, pady=10)
+        self.enter_video_entry.place(x=150, y =10)
 
         add_to_playlist_btn = tk.Button(self.window, text='Add Item To Playlist', command=self.add_to_playlist_clicked)
         add_to_playlist_btn.grid(row=0, column=2, padx=10, pady=10)
@@ -42,13 +42,16 @@ class CreateVideoList:
 
         self.playlist = []  
         self.key = []
+    
 
     def add_to_playlist_clicked(self):
         key = self.enter_video_entry.get()
         name = lib.get_name(key)
+        play_count = lib.get_play_count(key)
 
         if key == "":
             msb.showerror('Error', 'You must enter vieo number!')
+            return
         if name is not None:
             self.key.append(key)
             self.playlist.append(name)
@@ -61,7 +64,7 @@ class CreateVideoList:
 
     def play_playlist_clicked(self):
         try:
-            if self.key[0] is not None:
+            if self.key[0] is not None: 
                 for i in self.key:
                     lib.increment_play_count(i)
                 self.status_lbl.configure(text="Playlist played button was clicked!")
@@ -71,8 +74,9 @@ class CreateVideoList:
 
     def reset_playlist_clicked(self):
         self.playlist.clear()  
-        set_text(self.show_txt, "") 
-        self.key = []
+        self.key.clear()
+        set_text(self.show_txt, "")
+        set_text(self.content_txt, "") 
         self.status_lbl.configure(text="Playlist cleared!")
 
     def run(self):
